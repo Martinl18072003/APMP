@@ -97,7 +97,7 @@ if __name__ == "__main__":
     if data_csv[0] != 0:
         trigger = data_csv[0]
 
-    security_claw = trigger/0.95*0.96
+    security_claw = trigger*1.01
 
     # Variable for the optional display of live data
     life_indicator = 0
