@@ -9,7 +9,7 @@ Modifications:
 """
 
 # IMPORTS
-import ccxt, csv, time, sys
+import ccxt, csv, time, sys, os
 
 # FUNCTION
 def min_increment(number):
@@ -40,7 +40,7 @@ if __name__ == "__main__":
 
     # Reading symbol
     try:
-        with open("data.csv", mode='r') as file:
+        with open(str(os.path.abspath(os.getcwd())+'/data.csv'), mode='r') as file:
             reader = csv.reader(file)
             row = next(reader)
             data_csv = [value for value in row]
@@ -77,7 +77,7 @@ if __name__ == "__main__":
 
     # Reading injection data
     try:
-        with open('injection_data.csv', mode='r') as file:
+        with open(str(os.path.abspath(os.getcwd())+'/injection_data.csv'), mode='r') as file:
             reader = csv.reader(file)
             row = next(reader)
             data_csv = [float(value) for value in row]
@@ -122,7 +122,7 @@ if __name__ == "__main__":
             time.sleep(1000000)
             data = [-1]
             try:
-                with open('injection_data.csv', mode='w', newline='') as file:
+                with open(str(os.path.abspath(os.getcwd())+'/injection_data.csv'), mode='w', newline='') as file:
                     writer = csv.writer(file)
                     writer.writerow(data)
             except FileNotFoundError:
@@ -141,7 +141,7 @@ if __name__ == "__main__":
         data = [trigger]
 
         try:
-            with open('injection_data.csv', mode='w', newline='') as file:
+            with open(str(os.path.abspath(os.getcwd())+'/injection_data.csv'), mode='w', newline='') as file:
                 writer = csv.writer(file)
                 writer.writerow(data)
         except FileNotFoundError:

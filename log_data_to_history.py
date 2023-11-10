@@ -9,15 +9,14 @@ Modifications:
 """
 
 # IMPORTS
-import csv
-import datetime
+import csv, datetime, os
 
 # MAIN
 if __name__ == "__main__":
 
     # Reading
     try:
-        with open('data.csv', 'r') as file:
+        with open(str(os.path.abspath(os.getcwd())+'/data.csv'), 'r') as file:
             reader = csv.reader(file)
             data = next(reader)
     except FileNotFoundError:
@@ -38,7 +37,7 @@ if __name__ == "__main__":
 
     # Writing
     try:
-        with open('data_history.csv', 'a', newline='') as history_file:
+        with open(str(os.path.abspath(os.getcwd())+'/data_history.csv'), 'a', newline='') as history_file:
             writer = csv.writer(history_file)
             writer.writerow(data_with_datetime)
     except FileNotFoundError:

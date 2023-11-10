@@ -16,7 +16,7 @@ import pandas as pd
 # MAIN
 if __name__ == "__main__":
 
-    CSV_path = "data.csv"
+    CSV_path = str(os.path.abspath(os.getcwd())+'/data.csv')
 
     # Reading
     try:
@@ -38,7 +38,7 @@ if __name__ == "__main__":
 
     symbol = data_csv[14]
     exchange = ccxt.binance()
-    input_file = "initial_data.csv"
+    input_file = str(os.path.abspath(os.getcwd())+'/initial_data.csv')
 
     # Writing
     try:
@@ -60,7 +60,7 @@ if __name__ == "__main__":
         pass
 
     # Load the CSV file with 4 columns
-    output_file = 'returns.csv'
+    output_file = str(os.path.abspath(os.getcwd())+'/returns.csv')
 
     # Read the CSV file into a DataFrame
     df = pd.read_csv(input_file)

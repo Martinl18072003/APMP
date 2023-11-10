@@ -17,13 +17,20 @@
 // IMPORTS
 #include "stdlib.h"
 #include "stdio.h"
+#include "unistd.h"
+#include "string.h"
 
 // ERROR CODES
 #define kErr_file_error -1
 
 int main(void){
 
-    FILE *written_file = fopen("injection_data.csv", "w");
+    // Get path
+    char injection_data_path[1024];
+    getcwd(injection_data_path, sizeof(injection_data_path));
+    strcat(injection_data_path, "/injection_data.csv");
+
+    FILE *written_file = fopen(injection_data_path, "w");
 
     // ERROR Management File
     if (written_file == NULL){
@@ -40,7 +47,7 @@ int main(void){
     // Infinite loop
     while(1){
         // The "system" function surpasses anything and offers optimal resilience
-        read_file = fopen("injection_data.csv", "r");
+        read_file = fopen(injection_data_path, "r");
 
         // ERROR Management File
         if (read_file == NULL){
@@ -51,12 +58,26 @@ int main(void){
         fscanf(read_file, "%d", &firstValue); // fetching data of the csv
 
         if (firstValue == -1) {
-            system("rm injection_data.csv"); // remove the csv - useless memory
+            // Composing the command
+            char remove_command[1024];
+            strcpy(remove_command,"rm ");
+            strcat(remove_command,injection_data_path);
+            system(remove_command); // remove the csv - useless memory
             fclose(read_file); // closing the open file
             return 0;
         }
 
         fclose(read_file); // closing the open file
-        system("python3 injection.py");
+
+        // Get path
+        char injection_script_path[1024];
+        getcwd(injection_script_path, sizeof(injection_script_path));
+        strcat(injection_script_path, "/injection.py");
+
+        // Composing the command
+        char injection_command[1024];
+        strcpy(injection_command,"python3 ");
+        strcat(injection_command,injection_script_path);
+        system(injection_command); // remove the csv - useless memory
     }
 }

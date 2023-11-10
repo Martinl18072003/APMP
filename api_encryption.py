@@ -103,7 +103,7 @@ if int(sys.argv[2]) == 1:
 
     # Store the password in the csv file
     try:
-        with open('data.csv', mode='r') as file:
+        with open(str(os.path.abspath(os.getcwd())+'/data.csv'), mode='r') as file:
             reader = csv.reader(file)
             row = next(reader)
             data_csv = [value for value in row]
@@ -114,7 +114,7 @@ if int(sys.argv[2]) == 1:
     else: pass
     data_csv[15] = password
     try:
-        with open('data.csv', mode='w') as file:
+        with open(str(os.path.abspath(os.getcwd())+'/data.csv'), mode='w') as file:
             writer = csv.writer(file)
             writer.writerow(data_csv)
     except FileNotFoundError: print("The file does not exist. Please check the file path or create the file.")
@@ -127,7 +127,7 @@ elif int(sys.argv[2]) == 0:
 
     # Fetch the password stored in the csv file
     try:
-        with open('data.csv', mode='r') as file:
+        with open(str(os.path.abspath(os.getcwd())+'/data.csv'), mode='r') as file:
             reader = csv.reader(file)
             row = next(reader)
             data_csv = [value for value in row]
