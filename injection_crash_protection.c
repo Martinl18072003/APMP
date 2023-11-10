@@ -11,7 +11,9 @@
 
 /******************************************************************************
 * COMPILING COMMAND :
-* "gcc -std=c11 -Wall -Wextra -Werror -pedantic -Wshadow -Wformat=2 -Wfloat-equal -Wconversion -Wlong-long -Wshift-overflow -Wnull-dereference -O3 -g -o injection injection_crash_protection.c"
+* "gcc -std=c11 -Wall -Wextra -Werror -pedantic -Wshadow -Wformat=2 -Wfloat-equ
+*  al -Wconversion -Wlong-long -Wshift-overflow -Wnull-dereference -O3 -g -o in
+*  jection injection_crash_protection.c"
 ******************************************************************************/
 
 // IMPORTS
