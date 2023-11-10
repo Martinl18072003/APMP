@@ -9,7 +9,7 @@ Modifications:
 """
 
 # IMPORTS
-import ccxt, csv, time, sys, os
+import subprocess, shutil, ccxt, csv, time, sys, os
 
 # FUNCTION
 def min_increment(number):
@@ -36,7 +36,20 @@ def min_increment(number):
 if __name__ == "__main__":
 
     # ACCOUNT ACCESS
-    account = ccxt.binance()#TODO FILL
+    shutil.copy("/Volumes/APMP/apmp.txt.encrypted", os.path.abspath(os.getcwd()))
+    subprocess.run("python3 api_encryption.py apmp.txt 0", shell=True, check=True, text=True)
+    subprocess.run("rm apmp.txt.encrypted", shell=True, check=True, text=True)
+
+    with open("apmp.txt", 'r') as file:
+        key = file.readline().strip()
+        secret = file.readline().strip()
+
+    subprocess.run("rm apmp.txt", shell=True, check=True, text=True)
+    account = ccxt.binance({
+        'enableRateLimit': True,
+        'apiKey': key,
+        'secret':secret
+    })
 
     # Reading symbol
     try:

@@ -21,6 +21,26 @@ Operations Procedure:
 NB : the password is saved in the data.csv of the program, no need to write everytime
 """
 
+"""
+Code to copy/paste for account access:
+
+    # ACCOUNT ACCESS
+    shutil.copy("/Volumes/APMP/apmp.txt.encrypted", os.path.abspath(os.getcwd()))
+    subprocess.run("python3 api_encryption.py apmp.txt 0", shell=True, check=True, text=True)
+    subprocess.run("rm apmp.txt.encrypted", shell=True, check=True, text=True)
+
+    with open("apmp.txt", 'r') as file:
+        key = file.readline().strip()
+        secret = file.readline().strip()
+
+    subprocess.run("rm apmp.txt", shell=True, check=True, text=True)
+    account = ccxt.binance({
+        'enableRateLimit': True,
+        'apiKey': key,
+        'secret':secret
+    })
+"""
+
 # IMPORTS
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 from cryptography.hazmat.primitives import hashes
@@ -67,7 +87,7 @@ def encrypt_file(file_path, password):
     encryptor = cipher.encryptor()
     encrypted_data = encryptor.update(data) + encryptor.finalize()
 
-    with open(file_path + '.encrypted', 'wb') as file:
+    with open(str('/Volumes/APMP/'+file_path+'.encrypted'), 'wb') as file:
         file.write(salt + encrypted_data)
 
 def decrypt_file(file_path, password):
@@ -88,7 +108,7 @@ def decrypt_file(file_path, password):
     decryptor = cipher.decryptor()
     decrypted_data = decryptor.update(data) + decryptor.finalize()
 
-    with open(file_path.replace('.txt.encrypted', '_decrypted.txt'), 'wb') as file:
+    with open(file_path.replace('.txt.encrypted', '.txt'), 'wb') as file:
         file.write(decrypted_data)
 
 # Replace 'file.txt' with your actual file name
