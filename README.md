@@ -1,4 +1,11 @@
 # APMP
 
+Author : Martin Jacques-Yves Lemaire
+
+Version : 4
+
+Release Date : TBD
+
 ### Flowchart
-See Flow_charts.pdf
+
+Flowcharts of the program can be found [here](Flow_charts.pdf)
