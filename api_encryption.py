@@ -87,8 +87,14 @@ def encrypt_file(file_path, password):
     encryptor = cipher.encryptor()
     encrypted_data = encryptor.update(data) + encryptor.finalize()
 
-    with open(str('/Volumes/APMP/'+file_path+'.encrypted'), 'wb') as file:
-        file.write(salt + encrypted_data)
+    try:
+        with open(str('/Volumes/APMP/'+file_path+'.encrypted'), 'wb') as file:
+            file.write(salt + encrypted_data)
+    except FileNotFoundError: print("The file does not exist. Please check the file path or create the file.")
+    except PermissionError: print("Permission denied to open the file. Make sure you have the necessary permissions.")
+    except IOError as e: print(f"An I/O error occurred: {e}")
+    except Exception as e: print(f"An error occurred: {e}")
+    else: pass
 
 def decrypt_file(file_path, password):
     """
@@ -108,8 +114,14 @@ def decrypt_file(file_path, password):
     decryptor = cipher.decryptor()
     decrypted_data = decryptor.update(data) + decryptor.finalize()
 
-    with open(file_path.replace('.txt.encrypted', '.txt'), 'wb') as file:
-        file.write(decrypted_data)
+    try:
+        with open(file_path.replace('.txt.encrypted', '.txt'), 'wb') as file:
+            file.write(decrypted_data)
+    except FileNotFoundError: print("The file does not exist. Please check the file path or create the file.")
+    except PermissionError: print("Permission denied to open the file. Make sure you have the necessary permissions.")
+    except IOError as e: print(f"An I/O error occurred: {e}")
+    except Exception as e: print(f"An error occurred: {e}")
+    else: pass
 
 # Replace 'file.txt' with your actual file name
 file_to_encrypt = sys.argv[1]
